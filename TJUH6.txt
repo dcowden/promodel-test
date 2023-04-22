@@ -1,7 +1,7 @@
 ********************************************************************************
 *                                                                              *
 *                         Formatted Listing of Model:                          *
-* C:\Users\jcowden\OneDrive - BigBear.ai\Desktop\Projects\Thomas Jefferson\Lobby\TJUH6.mod *
+* C:\Users\jcowden\OneDrive - BigBear.ai\Desktop\Projects\Thomas Jefferson\Lobby\TJUH7.mod *
 *                                                                              *
 ********************************************************************************
 
@@ -168,6 +168,8 @@
                                
                                Real lv_Entrance_Chance = Rand(1)
                                Wait lv_delay_time min 
+                               //needs Check In Status
+                               A_Check_In_Status = U_Determine_Check_In_Status()
                                
                                If lv_Entrance_Chance <= Y_Arrival_Percentage[1,1] Then Route 1
                                else If lv_Entrance_Chance <= Y_Arrival_Percentage[1,1] + Y_Arrival_Percentage[2,1] Then Route 2
@@ -175,13 +177,18 @@
                                                     1    Patient     Garage_Entrance   FIRST 1  A_Entry_Time = Clock(min)
                                                     2    Patient     Street_Entrance_1 FIRST 1  A_Entry_Time = Clock(min)
                                                     3    Patient     Street_Entrance_2 FIRST 1  A_Entry_Time = Clock(min)
- Patient     Garage_Entrance                        1    Patient     Kiosk_Queue_1     MOST 1   Move On NetLobby
+ Patient     Garage_Entrance   If A_Check_In_Status < 3 Then
+                               {
+                               	//Skips the kiosk
+                               	Route 2
+                               }
+                               Else Route 1         1    Patient     Kiosk_Queue_1     MOST 1   Move On NetLobby
                                                          Patient     Kiosk_Queue_2     MOST     Move On NetLobby
+                                                    2    Patient     Elevator_1        FIRST 1  Move On NetLobby
  Patient     Kiosk_Queue_1                          1    Patient     Kiosk_1           FIRST 1  
  Patient     Kiosk_1           //Debug
                                Real lv_Needs_Ambassador_Percentage
-                               //needs Check In Status
-                               A_Check_In_Status = U_Determine_Check_In_Status()
+                               
                                Wait Y_Cycle_Time[A_Check_In_Status,1] min
                                //needs ambassador
                                lv_Needs_Ambassador_Percentage = Rand(1)
@@ -200,29 +207,40 @@
                                                                                                 V_Time_In_System = A_Time_In_System
  Patient     Elevator_2                             1    Patient     EXIT              FIRST 1  A_Time_In_System = Clock(min) - A_Entry_Time
                                                                                                 V_Time_In_System = A_Time_In_System
- Patient     Street_Entrance_1                      1    Patient     Kiosk_Queue_2     FIRST 1  Move On NetLobby
+ Patient     Street_Entrance_1 If A_Check_In_Status < 3 Then
+                               {
+                               	//Skips the kiosk
+                               	Route 2
+                               }
+                               Else Route 1         1    Patient     Kiosk_Queue_2     FIRST 1  Move On NetLobby
                                                          Patient     Kiosk_Queue_1     FIRST    Move On NetLobby
- Patient     Street_Entrance_2                      1    Patient     Kiosk_Queue_2     FIRST 1  Move On NetLobby
+                                                    2    Patient     Elevator_2        FIRST 1  Move On NetLobby
+ Patient     Street_Entrance_2 If A_Check_In_Status < 3 Then
+                               {
+                               	//Skips the kiosk
+                               	Route 2
+                               }
+                               Else Route 1         1    Patient     Kiosk_Queue_2     FIRST 1  Move On NetLobby
                                                          Patient     Kiosk_Queue_1     FIRST    Move On NetLobby
+                                                    2    Patient     Elevator_2        FIRST 1  Move On NetLobby
  Patient     Kiosk_Queue_2                          1    Patient     Kiosk_2           FIRST 1  
  Patient     Kiosk_2           //Debug
                                Real lv_Needs_Ambassador_Percentage
-                               //needs Check In Status
-                               A_Check_In_Status = U_Determine_Check_In_Status()
-                               Wait Y_Cycle_Time[A_Check_In_Status,1]
+                               
+                               Wait Y_Cycle_Time[A_Check_In_Status,1] min
                                //needs ambassador
                                lv_Needs_Ambassador_Percentage = Rand(1)
                                If lv_Needs_Ambassador_Percentage <= Y_Cycle_Time_Ambassador[1,1] Then 
                                {
                                	A_Needs_Ambassador = 1
-                               	Use Ambassador For Y_Cycle_Time_Ambassador[1,2]
+                               	Use Ambassador For Y_Cycle_Time_Ambassador[1,2] min
                                }
                                else If lv_Needs_Ambassador_Percentage <= (Y_Cycle_Time_Ambassador[2,1] + Y_Cycle_Time_Ambassador[1,1]) Then 
                                {
                                	A_Needs_Ambassador = 1
-                               	Use Ambassador For Y_Cycle_Time_Ambassador[2,2]
-                               }                    1    Patient     Elevator_1        FIRST 1  Move On NetLobby
-                                                         Patient     Elevator_2        FIRST    Move On NetLobby
+                               	Use Ambassador For Y_Cycle_Time_Ambassador[2,2] min
+                               }                    1    Patient     Elevator_2        FIRST 1  Move On NetLobby
+                                                         Patient     Elevator_1        FIRST    Move On NetLobby
 
 
 ********************************************************************************
