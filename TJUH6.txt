@@ -7,7 +7,7 @@
 
   Time Units:                        Minutes
   Distance Units:                    Feet
-
+This is a fixed thing
 
 ********************************************************************************
 *                                  Locations                                   *
