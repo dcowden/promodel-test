@@ -1,0 +1,305 @@
+********************************************************************************
+*                                                                              *
+*                         Formatted Listing of Model:                          *
+* C:\Users\jcowden\OneDrive - BigBear.ai\Desktop\Projects\Thomas Jefferson\Lobby\TJUH6.mod *
+*                                                                              *
+********************************************************************************
+
+  Time Units:                        Minutes
+  Distance Units:                    Feet
+
+
+********************************************************************************
+*                                  Locations                                   *
+********************************************************************************
+
+  Name              Cap Units Stats       Rules           Cost        
+  ----------------- --- ----- ----------- --------------- ------------
+  Garage_Entrance   inf 1     Time Series Oldest, ,                   
+  Kiosk_Queue_1     inf 1     Time Series Oldest, FIFO,               
+  Kiosk_1           1   4     Time Series Oldest, , First             
+  Kiosk_1.1         1   1     Time Series Oldest, ,                   
+  Kiosk_1.2         1   1     Time Series Oldest, ,                   
+  Kiosk_1.3         1   1     Time Series Oldest, ,                   
+  Kiosk_1.4         1   1     Time Series Oldest, ,                   
+  Elevator_1        inf 1     Time Series Oldest, ,                   
+  Elevator_2        inf 1     Time Series Oldest, ,                   
+  Street_Entrance_1 inf 1     Time Series Oldest, ,                   
+  Street_Entrance_2 inf 1     Time Series Oldest, ,                   
+  Arrival_Buffer    inf 1     Time Series Oldest, ,                   
+  LOC_Timer         inf 1     None        Oldest, ,                   
+  Kiosk_2           1   6     Time Series Oldest, , First             
+  Kiosk_2.1         1   1     Time Series Oldest, ,                   
+  Kiosk_2.2         1   1     Time Series Oldest, ,                   
+  Kiosk_2.3         1   1     Time Series Oldest, ,                   
+  Kiosk_2.4         1   1     Time Series Oldest, ,                   
+  Kiosk_2.5         1   1     Time Series Oldest, ,                   
+  Kiosk_2.6         1   1     Time Series Oldest, ,                   
+  Kiosk_Queue_2     inf 1     Time Series Oldest, FIFO,               
+
+
+********************************************************************************
+*                        Clock downtimes for Locations                         *
+********************************************************************************
+
+  Loc        Frequency    First Time   Priority     Scheduled Disable Logic
+  ---------- ------------ ------------ ------------ --------- ------- ------------------
+  Kiosk_1    e(8) hr                   99           No        No      Use Ambassador For 5 min
+                                                                      Wait U(20,5) min
+  Kiosk_1.1  e(8) hr                   99           No        No      Use Ambassador For 5 min
+                                                                      Wait U(20,5) min
+  Kiosk_1.2  e(8) hr                   99           No        No      Use Ambassador For 5 min
+                                                                      Wait U(20,5) min
+  Kiosk_1.3  e(8) hr                   99           No        No      Use Ambassador For 5 min
+                                                                      Wait U(20,5) min
+  Kiosk_1.4  e(8) hr                   99           No        No      Use Ambassador For 5 min
+                                                                      Wait U(20,5) min
+  Kiosk_2    e(8) hr                   99           No        No      Use Ambassador For 5 min
+                                                                      Wait U(20,5) min
+  Kiosk_2.1  e(8) hr                   99           No        No      Use Ambassador For 5 min
+                                                                      Wait U(20,5) min
+  Kiosk_2.2  e(8) hr                   99           No        No      Use Ambassador For 5 min
+                                                                      Wait U(20,5) min
+  Kiosk_2.3  e(8) hr                   99           No        No      Use Ambassador For 5 min
+                                                                      Wait U(20,5) min
+  Kiosk_2.4  e(8) hr                   99           No        No      Use Ambassador For 5 min
+                                                                      Wait U(20,5) min
+  Kiosk_2.5  e(8) hr                   99           No        No      Use Ambassador For 5 min
+                                                                      Wait U(20,5) min
+  Kiosk_2.6  e(8) hr                   99           No        No      Use Ambassador For 5 min
+                                                                      Wait U(20,5) min
+
+
+********************************************************************************
+*                                   Entities                                   *
+********************************************************************************
+
+  Name        Speed (fpm)  Stats       Cost        
+  ----------- ------------ ----------- ------------
+  Patient     114          Time Series             
+  Ent_Trigger 114          None                    
+
+
+********************************************************************************
+*                                Path Networks                                 *
+********************************************************************************
+
+  Name     Type        T/S              From     To       BI   Dist/Time  Speed Factor
+  -------- ----------- ---------------- -------- -------- ---- ---------- ------------
+  NetLobby Passing     Speed & Distance N1       N2       Bi   38.20      1
+                                        N2       N3       Bi   31.79      1
+                                        N2       N4       Bi   9.08       1
+                                        N2       N5       Bi   43.81      1
+                                        N5       N6       Bi   33.66      1
+                                        N7       N8       Bi   20.57      1
+                                        N8       NDesk    Bi   24.75      1
+                                        N8       N5       Bi   71.62      1
+                                        N8       N10      Bi   30.72      1
+                                        N10      N11      Bi   22.97      1
+                                        N10      N12      Bi   27.53      1
+
+
+********************************************************************************
+*                                  Interfaces                                  *
+********************************************************************************
+
+  Net        Node       Location          
+  ---------- ---------- -----------------
+  NetLobby   N1         Garage_Entrance   
+             N2         Kiosk_Queue_1     
+             N3         Elevator_1        
+             N6         Elevator_2        
+             N4         Kiosk_1           
+             N7         Street_Entrance_1 
+             N12        Kiosk_2           
+             N11        Street_Entrance_2 
+             N10        Kiosk_Queue_2     
+
+
+********************************************************************************
+*                                   Mapping                                    *
+********************************************************************************
+
+  Net        From       To         Dest
+  ---------- ---------- ---------- ------------
+  NetLobby   N2         N1         
+             N5         N2         
+             N8         N5         
+             N10        N8         
+             N2         N3         
+             N2         N4         
+             N2         N5         
+             N5         N6         
+             N5         N8         
+             N8         N7         
+             N8         NDesk      
+             N8         N10        
+             N10        N11        
+             N10        N12        
+
+
+********************************************************************************
+*                                  Resources                                   *
+********************************************************************************
+
+                               Res     Ent                                           
+  Name       Units    Stats    Search  Search Path        Motion         Cost        
+  ---------- -------- -------- ------- ------ ----------- -------------- ------------
+  Ambassador m_NumAmb By Unit  Closest Oldest NetLobby    Empty: 114 fpm             
+                                              Home: NDesk Full: 114 fpm              
+
+
+********************************************************************************
+*                                  Processing                                  *
+********************************************************************************
+
+                                         Process                             Routing
+
+ Entity      Location          Operation            Blk  Output      Destination       Rule     Move Logic
+ ----------- ----------------- ------------------   ---- ----------- ----------------- -------  ------------
+ Ent_Trigger LOC_Timer         Inc V_HR 
+                               If V_HR = 18 Then 
+                               {
+                               	Inc V_DAY 
+                               	If V_DAY = 8 Then V_DAY = 1
+                               	V_HR = 7
+                               }                    1    Ent_Trigger EXIT              FIRST 1  
+ Patient     Arrival_Buffer    Real lv_delay_time = Rand(60)
+                               
+                               Real lv_Entrance_Chance = Rand(1)
+                               Wait lv_delay_time min 
+                               
+                               If lv_Entrance_Chance <= Y_Arrival_Percentage[1,1] Then Route 1
+                               else If lv_Entrance_Chance <= Y_Arrival_Percentage[1,1] + Y_Arrival_Percentage[2,1] Then Route 2
+                               else If lv_Entrance_Chance <= Y_Arrival_Percentage[1,1] + Y_Arrival_Percentage[2,1] + Y_Arrival_Percentage[3,1] Then Route 3
+                                                    1    Patient     Garage_Entrance   FIRST 1  A_Entry_Time = Clock(min)
+                                                    2    Patient     Street_Entrance_1 FIRST 1  A_Entry_Time = Clock(min)
+                                                    3    Patient     Street_Entrance_2 FIRST 1  A_Entry_Time = Clock(min)
+ Patient     Garage_Entrance                        1    Patient     Kiosk_Queue_1     MOST 1   Move On NetLobby
+                                                         Patient     Kiosk_Queue_2     MOST     Move On NetLobby
+ Patient     Kiosk_Queue_1                          1    Patient     Kiosk_1           FIRST 1  
+ Patient     Kiosk_1           //Debug
+                               Real lv_Needs_Ambassador_Percentage
+                               //needs Check In Status
+                               A_Check_In_Status = U_Determine_Check_In_Status()
+                               Wait Y_Cycle_Time[A_Check_In_Status,1] min
+                               //needs ambassador
+                               lv_Needs_Ambassador_Percentage = Rand(1)
+                               If lv_Needs_Ambassador_Percentage <= Y_Cycle_Time_Ambassador[1,1] Then 
+                               {
+                               	A_Needs_Ambassador = 1
+                               	Use Ambassador For Y_Cycle_Time_Ambassador[1,2] min
+                               }
+                               else If lv_Needs_Ambassador_Percentage <= (Y_Cycle_Time_Ambassador[2,1] + Y_Cycle_Time_Ambassador[1,1]) Then 
+                               {
+                               	A_Needs_Ambassador = 1
+                               	Use Ambassador For Y_Cycle_Time_Ambassador[2,2] min
+                               }                    1    Patient     Elevator_1        FIRST 1  Move On NetLobby
+                                                         Patient     Elevator_2        FIRST    Move On NetLobby
+ Patient     Elevator_1                             1    Patient     EXIT              FIRST 1  A_Time_In_System = Clock(min) - A_Entry_Time
+                                                                                                V_Time_In_System = A_Time_In_System
+ Patient     Elevator_2                             1    Patient     EXIT              FIRST 1  A_Time_In_System = Clock(min) - A_Entry_Time
+                                                                                                V_Time_In_System = A_Time_In_System
+ Patient     Street_Entrance_1                      1    Patient     Kiosk_Queue_2     FIRST 1  Move On NetLobby
+                                                         Patient     Kiosk_Queue_1     FIRST    Move On NetLobby
+ Patient     Street_Entrance_2                      1    Patient     Kiosk_Queue_2     FIRST 1  Move On NetLobby
+                                                         Patient     Kiosk_Queue_1     FIRST    Move On NetLobby
+ Patient     Kiosk_Queue_2                          1    Patient     Kiosk_2           FIRST 1  
+ Patient     Kiosk_2           //Debug
+                               Real lv_Needs_Ambassador_Percentage
+                               //needs Check In Status
+                               A_Check_In_Status = U_Determine_Check_In_Status()
+                               Wait Y_Cycle_Time[A_Check_In_Status,1]
+                               //needs ambassador
+                               lv_Needs_Ambassador_Percentage = Rand(1)
+                               If lv_Needs_Ambassador_Percentage <= Y_Cycle_Time_Ambassador[1,1] Then 
+                               {
+                               	A_Needs_Ambassador = 1
+                               	Use Ambassador For Y_Cycle_Time_Ambassador[1,2]
+                               }
+                               else If lv_Needs_Ambassador_Percentage <= (Y_Cycle_Time_Ambassador[2,1] + Y_Cycle_Time_Ambassador[1,1]) Then 
+                               {
+                               	A_Needs_Ambassador = 1
+                               	Use Ambassador For Y_Cycle_Time_Ambassador[2,2]
+                               }                    1    Patient     Elevator_1        FIRST 1  Move On NetLobby
+                                                         Patient     Elevator_2        FIRST    Move On NetLobby
+
+
+********************************************************************************
+*                                   Arrivals                                   *
+********************************************************************************
+
+  Entity      Location       Qty Each                                                            First Time Occurrences Frequency  Logic
+  ----------- -------------- ------------------------------------------------------------------- ---------- ----------- ---------- ------------
+  Ent_Trigger LOC_Timer      1                                                                   0          INF         1 hr       
+  Patient     Arrival_Buffer Y_Day_of_Week_Count[1,V_DAY] * Y_Percentage_by_Hour[V_HR - 6,V_DAY] 0          INF         1 hr       
+
+
+********************************************************************************
+*                                  Attributes                                  *
+********************************************************************************
+
+  ID                 Type         Classification
+  ------------------ ------------ --------------
+#
+#If ambassador needed = 1, not = 0
+  A_Needs_Ambassador Integer      Entity        
+  A_Check_In_Status  Integer      Entity        
+  A_Entry_Time       Real         Entity        
+  A_Time_In_System   Real         Entity        
+
+
+********************************************************************************
+*                              Variables (global)                              *
+********************************************************************************
+
+  ID               Type         Initial value Stats      
+  ---------------- ------------ ------------- -----------
+  V_HR             Integer      6             Time Series
+  V_DAY            Integer      1             Time Series
+  V_Time_In_System Real         0             Time Series
+
+
+********************************************************************************
+*                                    Arrays                                    *
+********************************************************************************
+
+  ID                      Dimensions   Type         Import File            Export File Disable        Persist                        
+  ----------------------- ------------ ------------ ---------------------- ----------- -------------- -------------------------------
+  Y_Cycle_Time            4,1          Real         Simulation Inputs.xlsx             None           No                             
+  Y_Cycle_Time_Ambassador 2,2          Real         Simulation Inputs.xlsx             None           No                             
+  Y_Arrival_Percentage    3,1          Real         Simulation Inputs.xlsx             None           No                             
+  Y_Day_of_Week_Count     1,7          Integer      Simulation Inputs.xlsx             None           No                             
+  Y_Percentage_by_Hour    11,7         Real         Simulation Inputs.xlsx             None           No                             
+
+
+********************************************************************************
+*                                    Macros                                    *
+********************************************************************************
+
+  ID              Text
+  --------------- ------------
+  m_NumAmb        4
+
+
+********************************************************************************
+*                              User Distributions                              *
+********************************************************************************
+
+  ID                          Type         Cumulative   Percentage   Value       
+  --------------------------- ------------ ------------ ------------ ------------
+  U_Determine_Check_In_Status Discrete     No           10           1           
+                                                        30           2           
+                                                        20           3           
+                                                        40           4           
+
+
+********************************************************************************
+*                                External Files                                *
+********************************************************************************
+
+  ID         Type              File Name              Prompt    
+  ---------- ----------------- ---------------------- ----------
+  (null)                       Simulation Inputs.xlsx           
+
+
